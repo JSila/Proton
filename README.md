@@ -100,6 +100,13 @@ $app = $stack->resolve($app);
 Stack\run($app); // The app will run after all the middlewares have run
 ```
 
+After initializing an application, you can access it via static method. First is always named `default`, for every other you need to set it's name after initializing it and only then you can access it via static method.
+
+```php
+$app = new Application();
+$app1 = Application::getInstance(); // same as Application::getInstance('default');
+```
+
 ## Debugging
 
 By default Proton runs with debug options disabled. To enable debugging add

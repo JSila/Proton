@@ -43,11 +43,16 @@ class Application implements HttpKernelInterface, TerminableInterface, Container
      * @var array
      */
     protected $config = [];
-    
+
     /**
      * @var array
      */
     protected $loggers = [];
+
+    /**
+     * @var array[\Proton\Application]
+     */
+    protected static $apps = [];
 
     /**
      * New Application.
@@ -77,6 +82,11 @@ class Application implements HttpKernelInterface, TerminableInterface, Container
 
             return $response;
         });
+
+        // Make default if first instance
+       if (is_null(static::getInstance())) {
+           $this->setName('default');
+       }
     }
 
     /**
@@ -128,7 +138,7 @@ class Application implements HttpKernelInterface, TerminableInterface, Container
     {
         return $this->getEmitter();
     }
-    
+
     /**
      * Return a logger
      *
@@ -396,5 +406,37 @@ class Application implements HttpKernelInterface, TerminableInterface, Container
     public function getConfig($key, $default = null)
     {
         return isset($this->config[$key]) ? $this->config[$key] : $default;
+    }
+
+    /**
+     * Get application instance by name
+     *
+     * @param  string    $name The name of the Proton application
+     * @return \Proton\Application|null
+     */
+    public static function getInstance($name = 'default')
+    {
+        return isset(static::$apps[$name]) ? static::$apps[$name] : null;
+    }
+
+    /**
+     * Set Proton application name
+     *
+     * @param  string $name The name of this Slim application
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        static::$apps[$name] = $this;
+    }
+
+    /**
+     * Get Proton application name
+     *
+     * @return string|null
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

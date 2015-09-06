@@ -223,4 +223,21 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $app->run();
         ob_get_clean();
     }
+
+
+    public function testGetDefaultInstance()
+    {
+        $s = new Application();
+        $s->setName('default');
+        $this->assertEquals('default', $s->getName());
+        $this->assertInstanceOf('Proton\Application', Application::getInstance());
+        $this->assertSame($s, Application::getInstance());
+    }
+
+    public function testGetNamedInstance()
+    {
+        $s = new Application();
+        $s->setName('foo');
+        $this->assertSame($s, Application::getInstance('foo'));
+    }
 }
