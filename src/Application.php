@@ -168,7 +168,7 @@ class Application implements HttpKernelInterface, TerminableInterface, Container
      */
     public function get($route, $action)
     {
-        $this->getRouter()->addRoute('GET', $route, $action);
+        $this->getRouter()->addRoute(Request::METHOD_GET, $route, $action);
     }
 
     /**
@@ -181,7 +181,7 @@ class Application implements HttpKernelInterface, TerminableInterface, Container
      */
     public function post($route, $action)
     {
-        $this->getRouter()->addRoute('POST', $route, $action);
+        $this->getRouter()->addRoute(Request::METHOD_POST, $route, $action);
     }
 
     /**
@@ -194,7 +194,7 @@ class Application implements HttpKernelInterface, TerminableInterface, Container
      */
     public function put($route, $action)
     {
-        $this->getRouter()->addRoute('PUT', $route, $action);
+        $this->getRouter()->addRoute(Request::METHOD_PUT, $route, $action);
     }
 
     /**
@@ -207,7 +207,7 @@ class Application implements HttpKernelInterface, TerminableInterface, Container
      */
     public function delete($route, $action)
     {
-        $this->getRouter()->addRoute('DELETE', $route, $action);
+        $this->getRouter()->addRoute(Request::METHOD_DELETE, $route, $action);
     }
 
     /**
@@ -220,7 +220,7 @@ class Application implements HttpKernelInterface, TerminableInterface, Container
      */
     public function patch($route, $action)
     {
-        $this->getRouter()->addRoute('PATCH', $route, $action);
+        $this->getRouter()->addRoute(Request::METHOD_PATCH, $route, $action);
     }
 
     /**
